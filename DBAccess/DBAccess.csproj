@@ -114,6 +114,7 @@
     <Compile Include="SQLContext\SelectContext.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ToJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

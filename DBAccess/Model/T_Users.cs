@@ -40,8 +40,12 @@ namespace DBAccess.Model
         //[CRequired("请输入{name}")]
         //public string cUsers_Name
         //{
-        //    set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-        //    get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
+        //    set
+        //    {
+        //        SetValue(MethodBase.GetCurrentMethod().Name, value);
+        //        cUsers_Name = value;
+        //    }
+        //    get;
         //}
         //public string cUsers_LoginName
         //{
