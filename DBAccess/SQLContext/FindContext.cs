@@ -130,7 +130,15 @@ namespace DBAccess.SQLContext
         {
             var model = new Dictionary<string, object>();
             foreach (DataColumn item in r.Table.Columns) model.Add(item.ColumnName, r[item.ColumnName] == DBNull.Value ? null : r[item.ColumnName]);
-            return jss.Deserialize<T>(jss.Serialize(model));
+            var json = jss.Serialize(model);
+            json = System.Text.RegularExpressions.Regex.Replace(json, @"\\/Date\((\d+)\)\\/", match =>
+            {
+                DateTime dt = new DateTime(1970, 1, 1);
+                dt = dt.AddMilliseconds(long.Parse(match.Groups[1].Value));
+                dt = dt.ToLocalTime();
+                return dt.ToString("yyyy-MM-dd HH:mm:ss");
+            });
+            return jss.Deserialize<T>(json);
         }
 
         /// <summary>
