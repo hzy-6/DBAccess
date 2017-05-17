@@ -13,10 +13,6 @@ using Natasha;
 
 namespace DBAccess
 {
-    public class TestClass
-    {
-        public int id { get; set; }
-    }
     public class Program
     {
         static void Main(string[] args)
