@@ -51,7 +51,7 @@ namespace DBAccess.CheckClass
         public bool Main(PropertyInfo item, T entity)
         {
             var DisplayName = entity.EH.GetDisplayName(entity, item.Name);
-            var Value = item.GetValue(entity);
+            var Value = item.GetValue(entity, null);
             if (!CRequired(item, entity, DisplayName, Value))
                 return false;
             if (!CStringLength(item, entity, DisplayName, Value))
@@ -166,7 +166,7 @@ namespace DBAccess.CheckClass
                     foreach (var info in list)
                     {
                         var infoname = entity.EH.GetAttrTag<CCompareAttribute>(entity, fileName);
-                        if (info.Name.Equals(sign.OtherProperty) && !info.GetValue(entity).Equals(Value))
+                        if (info.Name.Equals(sign.OtherProperty) && !info.GetValue(entity, null).Equals(Value))
                         {
                             SetErrorMessage(sign.ErrorMessage, DisplayName + "的值与" + infoname + "不匹配", DisplayName);
                             return false;
@@ -208,7 +208,7 @@ namespace DBAccess.CheckClass
                             if (sign.Where.Contains("{" + pi.Name + "}"))
                             {
                                 where += sign.Where + " ";
-                                where = where.Replace("{" + pi.Name + "}", pi.GetValue(entity) == null ? "" : pi.GetValue(entity).ToString());
+                                where = where.Replace("{" + pi.Name + "}", pi.GetValue(entity, null) == null ? "" : pi.GetValue(entity, null).ToString());
                             }
                         }
                     }
@@ -250,9 +250,9 @@ namespace DBAccess.CheckClass
                     if (num == null)
                         throw new AggregateException("设置编号错误：数据无法查出！");
                     if (item.PropertyType == typeof(int))
-                        item.SetValue(Model, Tool.ToInt(num.ToString().PadLeft(sign.Length, sign.Str)));
+                        item.SetValue(Model, Tool.ToInt(num.ToString().PadLeft(sign.Length, sign.Str)), null);
                     else
-                        item.SetValue(Model, Tool.ToString(num).PadLeft(sign.Length, sign.Str));
+                        item.SetValue(Model, Tool.ToString(num).PadLeft(sign.Length, sign.Str), null);
                 }
             }
             return true;

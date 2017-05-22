@@ -38,7 +38,7 @@ namespace DBAccess.SQLContext
             var pK = entity.EH.GetPropertyInfo(entity, entity.EH.GetKeyName(entity));//获取主键的 PropertyInfo
             if (pK.PropertyType.Equals(typeof(Guid?)))
             {
-                var keyval = Guid.Parse((pK.GetValue(entity) == null ? Guid.Empty : pK.GetValue(entity)).ToString());
+                var keyval = Guid.Parse((pK.GetValue(entity, null) == null ? Guid.Empty : pK.GetValue(entity, null)).ToString());
                 KeyID = keyval == Guid.Empty ? Guid.NewGuid().ToString() : keyval.ToString();
                 entity.EH.SetValue(entity, pK.Name, Guid.Parse(KeyID));
             }
