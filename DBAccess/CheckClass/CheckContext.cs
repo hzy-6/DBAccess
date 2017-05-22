@@ -38,7 +38,9 @@ namespace DBAccess.CheckClass
 
         public bool Check(T entity)
         {
-            var list = entity.EH.GetAllPropertyInfo(entity).FindAll(item => !entity.NotChecks.Contains(item.Name));
+            var list = entity.EH.GetAllPropertyInfo(entity);
+            list = list.FindAll(item => entity.fileds.ContainsKey(item.Name));
+            list = list.FindAll(item => !entity.NotChecks.Contains(item.Name));
 
             foreach (var item in list)
             {
