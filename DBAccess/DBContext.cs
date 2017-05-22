@@ -37,11 +37,6 @@ namespace DBAccess
         /// 数据库操作类
         /// </summary>
         /// <param name="ConnectionString">链接串 不传入默认为 ConnectionString </param>
-        /// 
-        /// <summary>
-        /// 数据库操作类
-        /// </summary>
-        /// <param name="ConnectionString">链接串 不传入默认为 ConnectionString </param>
         /// <param name="DBType">数据库类型 默认 sqlserver </param>
         public DBContext(string ConnectionString = null, DBType DBType = DBType.SqlServer)
         {
