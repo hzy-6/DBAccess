@@ -8,6 +8,7 @@ using DBAccess.Entity;
 using DBAccess.CustomAttribute;
 using DBAccess.SQLContext;
 using DBAccess.HelperClass;
+using DBAccess.AdoDotNet;
 using System.Reflection;
 
 namespace DBAccess.CheckClass

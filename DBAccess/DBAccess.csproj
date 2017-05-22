@@ -63,10 +63,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Natasha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\Natasha.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -78,6 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoDotNet\DBHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AdoDotNet\MySqlHelper.cs" />
     <Compile Include="AdoDotNet\SqlHelper.cs" />
     <Compile Include="CheckClass\CheckContext.cs" />
@@ -115,9 +114,6 @@
     <Compile Include="SQLContext\EditContext.cs" />
     <Compile Include="SQLContext\FindContext.cs" />
     <Compile Include="SQLContext\ISqlContext.cs" />
-    <Compile Include="SQLContext\DBHelper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ToJson.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,7 +124,6 @@
     <Content Include="DLL\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
     <Content Include="DLL\Microsoft.Practices.ObjectBuilder.dll" />
     <Content Include="DLL\MySql.Data.dll" />
-    <Content Include="DLL\Natasha.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

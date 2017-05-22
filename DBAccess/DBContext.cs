@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using DBAccess.SQLContext;
 using DBAccess.CheckClass;
 using DBAccess.Entity;
+using DBAccess.HelperClass;
 using System.Data;
 using System.Web.Script.Serialization;
 
@@ -353,11 +354,6 @@ namespace DBAccess
             return find.FINDToObj(SQL);
         }
 
-        public DataTable Find(string SQL, int PageIndex, int PageSize, out int PageCount, out int Counts)
-        {
-            return find.Find(SQL, PageIndex, PageSize, out PageCount, out Counts);
-        }
-
         public PagingEntity Find(string SQL, int PageIndex, int PageSize)
         {
             return find.Find(SQL, PageIndex, PageSize);
@@ -381,7 +377,7 @@ namespace DBAccess
         /// <returns></returns>
         public List<Dictionary<string, object>> GetList(DataTable table)
         {
-            return find.ConvertDataTableToList<Dictionary<string, object>>(table);
+            return Tool.ConvertDataTableToList<Dictionary<string, object>>(table);
         }
 
         /// <summary>
@@ -392,7 +388,7 @@ namespace DBAccess
         /// <returns></returns>
         public List<T> GetList<T>(DataTable table) where T : BaseModel
         {
-            return find.ConvertDataTableToList<T>(table);
+            return Tool.ConvertDataTableToList<T>(table);
         }
 
         /// <summary>
