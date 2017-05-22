@@ -15,18 +15,16 @@ namespace DBAccess.SQLContext
     public class AddContext<T> where T : BaseModel, new()
     {
         Context.AddSqlString<T> add;
-        CommitContext commit;
-        DBHelper select;
+        DBHelper dbhelper;
         private AddContext() { }
 
         private string _ConnectionString { get; set; }
 
-        public AddContext(string ConnectionString)
+        public AddContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            commit = new CommitContext(_ConnectionString);
             add = new Context.AddSqlString<T>();
-            select = new DBHelper(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
         }
 
         private SQL_Container GetSql(T entity)
@@ -59,7 +57,7 @@ namespace DBAccess.SQLContext
             var m = this.GetModel(entity);
             var sql = this.GetSql(m.T);
             //if (select.ExecuteNonQuery(sql) > 0)
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return m.id;
             return null;
         }

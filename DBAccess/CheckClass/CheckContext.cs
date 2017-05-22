@@ -24,16 +24,16 @@ namespace DBAccess.CheckClass
         /// </summary>
         public string ErrorMessage { get; set; }
 
-        DBHelper select;
+        DBHelper dbhelper;
 
         private CheckContext() { }
 
         private string _ConnectionString { get; set; }
 
-        public CheckContext(string ConnectionString)
+        public CheckContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            select = new DBHelper(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
         }
 
         public bool Check(T entity)
@@ -214,7 +214,7 @@ namespace DBAccess.CheckClass
                     }
 
                     string sql = "SELECT COUNT(1) FROM " + TableName + " WHERE 1=1 AND " + fileName + "='" + Value + "' " + where;
-                    if (Tool.ToInt(select.ExecuteScalar(sql)) > 0)
+                    if (Tool.ToInt(dbhelper.ExecuteScalar(sql)) > 0)
                     {
                         SetErrorMessage(sign.ErrorMessage, DisplayName + "已存在", DisplayName);
                         return false;
@@ -245,7 +245,7 @@ namespace DBAccess.CheckClass
                 {
                     var sql = " exec getnumber '" + item.Name + "','" + TableName + "'";
                     //my sql 语句 " call getnumber ('" + item.Name + "','" + TableName + "') "
-                    var dt = select.ExecuteDataset(sql);
+                    var dt = dbhelper.ExecuteDataset(sql);
                     var num = dt.Rows[0][0];
                     if (num == null)
                         throw new AggregateException("设置编号错误：数据无法查出！");

@@ -25,10 +25,10 @@ namespace DBAccess.SQLContext
 
         private string _ConnectionString { get; set; }
 
-        public FindContext(string ConnectionString)
+        public FindContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            dbhelper = new DBHelper(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
             sqlstring = new Context.FindSqlString<T>();
             jss = new JavaScriptSerializer();
         }

@@ -22,9 +22,9 @@ namespace DBAccess.AdoDotNet
         /// </summary>
         /// <param name="ConnectionString">链接字符串</param>
         /// <param name="DBType">数据库类型[SqlServer，MySql，Oracle]</param>
-        public DBHelper(string ConnectionString, DBType DBType = DBType.SqlServer)
+        public DBHelper(string ConnectionString, DBType DBType)
         {
-            this._ConnectionString = _ConnectionString;
+            this._ConnectionString = _ConnectionString;// = DBType.SqlServer
             this._DBType = DBType;
         }
 
@@ -150,10 +150,26 @@ namespace DBAccess.AdoDotNet
             return pe;
         }
 
+        public bool Commit(List<SQL_Container> li)
+        {
+            var rel = false;
+            switch (_DBType)
+            {
+                case DBType.MySql:
+                    rel = MySqlHelper.COMMIT(_ConnectionString, li);
+                    break;
+                case DBType.SqlServer:
+                default:
+                    rel = SqlHelper.COMMIT(_ConnectionString, li);
+                    break;
+            }
+            return rel;
+        }
+
     }
 
     /// <summary>
-    /// 数据类型
+    /// 数据库类型
     /// </summary>
     public enum DBType
     {

@@ -15,18 +15,16 @@ namespace DBAccess.SQLContext
     public class EditContext<T> where T : BaseModel, new()
     {
         Context.EditSqlString<T> sqlstring;
-        CommitContext commit;
-        DBHelper select;
+        DBHelper dbhelper;
         private EditContext() { }
 
         private string _ConnectionString { get; set; }
 
-        public EditContext(string ConnectionString)
+        public EditContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            commit = new CommitContext(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
             sqlstring = new Context.EditSqlString<T>();
-            select = new DBHelper(_ConnectionString);
         }
 
         private SQL_Container GetSql(T entity)
@@ -56,7 +54,7 @@ namespace DBAccess.SQLContext
         {
             var sql = this.GetSql(entity);
             //if (select.ExecuteNonQuery(sql) > 0)
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return true;
             return false;
         }
@@ -65,7 +63,7 @@ namespace DBAccess.SQLContext
         {
             var sql = this.GetSql(entity, where);
             //if (select.ExecuteNonQuery(sql) > 0)
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return true;
             return false;
         }
@@ -74,7 +72,7 @@ namespace DBAccess.SQLContext
         {
             var sql = this.GetSql(entity, where);
             //if (select.ExecuteNonQuery(sql) > 0)
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return true;
             return false;
         }
@@ -83,7 +81,7 @@ namespace DBAccess.SQLContext
         {
             var sql = sqlstring.GetSqlString(entity, where);
             //if (select.ExecuteNonQuery(sql) > 0)
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return true;
             return false;
         }

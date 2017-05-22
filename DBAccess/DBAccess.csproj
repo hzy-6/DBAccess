@@ -105,7 +105,6 @@
     <Compile Include="Reflection\EntityHelper.cs" />
     <Compile Include="SQLContext\AbstractSqlContext.cs" />
     <Compile Include="SQLContext\AddContext.cs" />
-    <Compile Include="SQLContext\CommitContext.cs" />
     <Compile Include="SQLContext\Context\AddSqlString.cs" />
     <Compile Include="SQLContext\Context\DeleteSqlString.cs" />
     <Compile Include="SQLContext\Context\EditSqlString.cs" />
