@@ -16,7 +16,6 @@ namespace DBAccess.Model
         public T_Users()
         {
             this.TableName = "T_Users";
-            this.NotFiled.Add("dUsers_CreateTime");
         }
 
         [Filed(DisplayName = "ID", IsPrimaryKey = true)]
@@ -49,8 +48,8 @@ namespace DBAccess.Model
         }
         public DateTime? dUsers_CreateTime
         {
-            set { SetValue("dUsers_CreateTime", value); }
-            get { return GetValue<DateTime?>("dUsers_CreateTime"); }
+            get;
+            set;
         }
     }
 }
