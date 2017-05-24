@@ -74,16 +74,14 @@ namespace DBAccess.Entity
         /// <param name="Value"></param>
         public void SetValue(string FiledName, object Value)
         {
-            if (FiledName.StartsWith("set_"))
-                FiledName = FiledName.Replace("set_", "");
-            var isYes = NotFiled.Contains(FiledName);
-            if (!isYes)
+            if (Value is string && Value == "null")
             {
-                if (fileds.ContainsKey(FiledName))
-                    fileds[FiledName] = Value;
-                else
-                    fileds.Add(FiledName, Value);
+                Value = null;
             }
+            if (fileds.ContainsKey(FiledName))
+                fileds[FiledName] = Value;
+            else
+                fileds.Add(FiledName, Value);
         }
 
         /// <summary>
@@ -101,10 +99,15 @@ namespace DBAccess.Entity
         {
             try
             {
-                if (FiledName.StartsWith("get_"))
-                    FiledName = FiledName.Replace("get_", "");
                 if (fileds.ContainsKey(FiledName))
-                    return (T)fileds[FiledName];
+                {
+                    object Value = fileds[FiledName];
+                    if (Value is string && Value == "null")
+                    {
+                        Value = null;
+                    }
+                    return (T)Value;
+                }
                 else
                     return default(T);
             }
