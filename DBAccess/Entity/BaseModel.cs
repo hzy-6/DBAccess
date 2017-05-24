@@ -74,7 +74,7 @@ namespace DBAccess.Entity
         /// <param name="Value"></param>
         public void SetValue(string FiledName, object Value)
         {
-            if (Value is string && Value == "null")
+            if (Value is string && Value != null && Value.ToString() == "null")
             {
                 Value = null;
             }
@@ -102,7 +102,7 @@ namespace DBAccess.Entity
                 if (fileds.ContainsKey(FiledName))
                 {
                     object Value = fileds[FiledName];
-                    if (Value is string && Value == "null")
+                    if (Value is string && Value != null && Value.ToString() == "null")
                     {
                         Value = null;
                     }
