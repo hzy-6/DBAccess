@@ -5,7 +5,7 @@
 
 
 
-/*      //申明一个操作实体的对象类
+      //申明一个操作实体的对象类
             DBContext db = new DBContext();
             var li = new List<SQL_Container>();
             //创建一个实体类
@@ -71,4 +71,4 @@
             if (db.Commit(li))
                 Console.WriteLine("事务提交成功！");
             else
-                Console.WriteLine("事务提交失败！");       */
+                Console.WriteLine("事务提交失败！");       
