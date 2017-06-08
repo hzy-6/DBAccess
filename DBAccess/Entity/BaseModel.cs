@@ -9,8 +9,7 @@ using DBAccess.HelperClass;
 
 namespace DBAccess.Entity
 {
-    // [AopEntity]
-    public class BaseModel //: ContextBoundObject
+    public class BaseModel
     {
         /// <summary>
         /// 表名
@@ -33,7 +32,7 @@ namespace DBAccess.Entity
         public readonly EntityHelper<BaseModel> EH = new EntityHelper<BaseModel>();
 
         /// <summary>
-        /// 放置不操作数据的字段容器
+        /// 放置不操作数据的字段容器 [用来操作 添加 修改 的字段]
         /// </summary>
         public List<string> NotFiled = new List<string>();
 
@@ -44,23 +43,6 @@ namespace DBAccess.Entity
             EH = new EntityHelper<BaseModel>();
             NotFiled = new List<string>();
         }
-
-        /// <summary>
-        /// set 
-        /// </summary>
-        /// <param name="FiledName"></param>
-        /// <param name="Value"></param>
-        //private void Set(string FiledName, object Value)
-        //{
-        //    var isYes = NotFiled.Contains(FiledName);
-        //    if (!isYes)
-        //    {
-        //        if (fileds.ContainsKey(FiledName))
-        //            fileds[FiledName] = Value;
-        //        else
-        //            fileds.Add(FiledName, Value);
-        //    }
-        //}
 
         /// <summary>
         /// 此函数用在属性set时  如下用法:
@@ -74,6 +56,7 @@ namespace DBAccess.Entity
         /// <param name="Value"></param>
         public void SetValue(string FiledName, object Value)
         {
+            if (FiledName.Contains("set_")) FiledName = FiledName.Replace("set_", "");
             if (Value is string && Value != null && Value.ToString() == "null")
             {
                 Value = null;
@@ -99,6 +82,7 @@ namespace DBAccess.Entity
         {
             try
             {
+                if (FiledName.Contains("get_")) FiledName = FiledName.Replace("get_", "");
                 if (fileds.ContainsKey(FiledName))
                 {
                     object Value = fileds[FiledName];
